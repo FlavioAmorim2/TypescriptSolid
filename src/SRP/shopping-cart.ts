@@ -1,9 +1,10 @@
-type CartItem = { name: string; price: number };
-type orderStatus = 'open' | 'closed';
+import { CartItem } from "./interfaces/cart-item";
+import { OrderStatus } from "./interfaces/order-status";
+
 
 export class ShoppingCart {
     private readonly _items: CartItem[] = [];
-    private _orderStatus: orderStatus = 'open';
+    private _orderStatus: OrderStatus = 'open'; //
 
     addItem(item: CartItem): void {
         this._items.push(item);
@@ -17,7 +18,8 @@ export class ShoppingCart {
         return this._items;
     }
 
-    get orderStatus(): orderStatus {
+    //
+    get orderStatus(): OrderStatus {
         return this.orderStatus;
     }
 
@@ -25,6 +27,7 @@ export class ShoppingCart {
         return +this._items.reduce((total, next) => total + next.price, 0).toFixed(2);
     }
 
+  //
     checkout(): void {
         if(this.isEmpty()) {
             console.log('Seu carrinho está vazio');
@@ -54,14 +57,3 @@ export class ShoppingCart {
         this._items.length = 0;
     }
 }
-
-const shoppingCart = new ShoppingCart();
-shoppingCart.addItem({ name: 'Camiseta', price: 49.90 });
-shoppingCart.addItem({ name: 'Caderno', price: 5.90 });
-shoppingCart.addItem({ name: 'mochila', price: 59.90});
-
-
-console.log(shoppingCart.items);
-console.log(shoppingCart.total());
-shoppingCart.checkout()
-console.log(shoppingCart.orderStatus);
