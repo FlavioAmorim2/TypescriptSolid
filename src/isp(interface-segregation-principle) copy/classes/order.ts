@@ -2,6 +2,7 @@ import { OrderStatus } from './interfaces/order-status';
 import { Messaging } from '../services/messaging';
 import { Persistency } from '../services/persistency';
 import { ShoppingCart } from './shopping-cart';
+import { CustomerOrder } from './interfaces/customer-protocol';
 
 export class Order {
   private _orderStatus: OrderStatus = 'open';
@@ -10,6 +11,8 @@ export class Order {
     private readonly cart: ShoppingCart,
     private messaging: Messaging,
     private persistency: Persistency,
+    private readonly customer: CustomerOrder,
+    private readonly customerOrder: CustomerOrder,
   ) {}
 
   get orderStatus(): OrderStatus {
@@ -24,9 +27,11 @@ export class Order {
 
     this._orderStatus = 'closed';
     this.messaging.sendMessage(
-      `Seu pedido com total de R$ ${this.cart.totalWithDiscount()} foi recebido.`,
+      `Seu pedido com total de R$ ${this.cart.total()} foi recebido.`,
     );
     this.persistency.saveOrder();
     this.cart.clear();
+
+    console.log('O cliente é:', this.customer.getName(), this.customer.getIDN());
   }
 }

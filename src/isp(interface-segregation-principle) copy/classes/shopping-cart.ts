@@ -1,4 +1,4 @@
-import { Discount } from './discount';
+import { Discount } from './interfaces/discount';
 import { CartItem } from './interfaces/cart-item';
 import { OrderStatus } from './interfaces/order-status';
 

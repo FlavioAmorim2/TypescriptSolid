@@ -1,8 +1,8 @@
-import { Discount } from './discount';
+import { Discount } from './interfaces/discount';
 import { CartItem } from './interfaces/cart-item';
-import { OrderStatus } from './interfaces/order-status';
+import { ShoppingCartProtocol } from './interfaces/shopping-cart-protocol';
 
-export class ShoppingCart {
+export class ShoppingCart implements ShoppingCartProtocol {
   private readonly _items: CartItem[] = [];
 
   constructor (private readonly discount: Discount) {}
