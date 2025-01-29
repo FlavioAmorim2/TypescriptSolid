@@ -5,6 +5,7 @@ import { Persistency } from './services/persistency';
 import { Product } from './classes/product';
 import { NoDiscount } from './classes/interfaces/discount';
 import { EnterpriseCustomer, IndividualCustomer } from './classes/curstomer';
+import { MessagingProtocol } from './classes/interfaces/messaging-protocol';
 
 // const fiftyPercentDiscount = new FiftyPercentDiscount();
 // const tenPercentDiscount = new TenPercentDiscount();
@@ -14,7 +15,15 @@ const messagin = new Messaging();
 const persistency = new Persistency();
 // const individualCustomer = new IndividualCustomer('BBB', '123.456.789-00');
 const enterpriseCustomer = new EnterpriseCustomer('Name', '2222222222222');
-const order = new Order(shoppingCart, messagin, persistency, enterpriseCustomer);
+
+class MessagingMock implements MessagingProtocol {
+  sendMessage(): void {
+    console.log('msg via MOCK')
+  }
+}
+const messaginMock = new MessagingMock();
+
+const order = new Order(shoppingCart, messaginMock, persistency, enterpriseCustomer);
 
 shoppingCart.addItem(new Product('Camiseta', 49.9));
 shoppingCart.addItem(new Product('Caderno', 19.9));
